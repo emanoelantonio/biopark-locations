@@ -10,7 +10,7 @@ export const createApartment = async (req: Request, res: Response) => {
     data: { number, floor, bedrooms, bathrooms, size, rent, buildingId },
   });
 
-  res.json(apartment);
+  return res.status(201).json(apartment);
 };
 
 export const getAvailableApartments = async (req: Request, res: Response) => {

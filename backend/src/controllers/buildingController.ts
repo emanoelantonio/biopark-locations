@@ -16,7 +16,7 @@ export const createBuilding = async (req: Request, res: Response) => {
     },
   });
 
-  res.json(building);
+  return res.status(201).json(building);
 };
 
 export const getBuildingById = async (req: Request, res: Response) => {
