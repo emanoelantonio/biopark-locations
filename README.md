@@ -47,9 +47,14 @@ Clone o repositório
 ```
  $ npm install
 ```
+## Docker
  Rode o arquivo docker-compose.yml para criar um bando de dados Postgres no container docker
 ```
  $ node docker-compose.yml
+```
+ Rodando o container
+```
+ $ docker-compose up -d
 ```
  Execute o servidor
 ```

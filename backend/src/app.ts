@@ -16,7 +16,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Adicione o pool de conexão do PostgreSQL ao objeto request
 app.use((req, res, next) => {
   req.body = pool;
   next();
