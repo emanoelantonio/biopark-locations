@@ -18,17 +18,17 @@ model Building {
 }
 
 model Apartment {
-  id         String   @id @default(uuid())
-  number     Int
-  floor      Int
-  bedrooms   Int
-  bathrooms  Int
-  size       Int
-  rent       Int
-  building   Building @relation(fields: [buildingId], references: [id])
-  buildingId String
-  renter     Renter?
-  renterId   String?  @unique
+  id          String   @id @default(uuid())
+  number      Int
+  floor       Int
+  bedrooms    Int
+  bathrooms   Int
+  size        Int
+  rent_amount Int
+  building    Building @relation(fields: [buildingId], references: [id])
+  buildingId  String
+  renter      Renter?
+  renterId    String?  @unique
 }
 
 model Renter {
@@ -38,4 +38,6 @@ model Renter {
   phone       String?
   apartment   Apartment? @relation(fields: [apartmentId], references: [id])
   apartmentId String?    @unique
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
