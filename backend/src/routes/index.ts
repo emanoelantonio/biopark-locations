@@ -1,14 +1,17 @@
 import express from 'express';
 import {
-  createApartment,
-  getAvailableApartments,
-  renterApartment
+  createApartmentController,
+  getAllApartmentController,
+  getApartmentByIdController,
+  getAvailableApartmentsController,
+  rentApartmentController,
+  renterApartmentController,
+  updateApartmentController
 } from '../controllers/apartmentController';
 import {
   createBuildingController,
   getAllBuildingsController,
   getBuildingByIdController,
-  removeBuildingController,
   updateBuldingController
 } from '../controllers/buildingController';
 import {
@@ -27,12 +30,16 @@ router.post('/buildings', createBuildingController);
 router.get('/buildings/:id', getBuildingByIdController);
 router.get('/buildings', getAllBuildingsController);
 router.put('/buildings/:id', updateBuldingController);
-router.delete('/buildings/:id', removeBuildingController);
+
 
 // Rotas para os apartamentos
-router.post('/apartments', createApartment);
-router.get('/apartments/available/:buildingId', getAvailableApartments);
-router.post('/apartments/rent', renterApartment);
+router.post('/apartments', createApartmentController);
+router.get('/apartments', getAllApartmentController);
+router.get('/apartments/:id', getApartmentByIdController);
+router.put('/apartments/:id', updateApartmentController);
+router.get('/apartments/available/:buildingId', getAvailableApartmentsController);
+router.get('/apartments/rented', renterApartmentController);
+router.post('/apartments/rent', rentApartmentController)
 
 // Rotas para os locatários
 router.post('/renters', createRenterController);
