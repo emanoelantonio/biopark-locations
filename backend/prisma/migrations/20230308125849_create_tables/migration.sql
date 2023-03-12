@@ -15,7 +15,7 @@ CREATE TABLE "Apartment" (
     "bedrooms" INTEGER NOT NULL,
     "bathrooms" INTEGER NOT NULL,
     "size" INTEGER NOT NULL,
-    "rent" INTEGER NOT NULL,
+    "rent_amount" INTEGER NOT NULL,
     "buildingId" TEXT NOT NULL,
     "renterId" TEXT,
 
@@ -29,6 +29,8 @@ CREATE TABLE "Renter" (
     "email" TEXT NOT NULL,
     "phone" TEXT,
     "apartmentId" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Renter_pkey" PRIMARY KEY ("id")
 );

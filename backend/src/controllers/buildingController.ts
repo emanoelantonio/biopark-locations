@@ -1,41 +1,52 @@
-import { PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
+import {
+  createBuildingRepository,
+  getBuildingByIdRepository,
+  getBuildingRepository,
+  updateBuildingRepository
+} from '../repositories/buildingRepository';
 
-const prisma = new PrismaClient()
 
-export const createBuilding = async (req: Request, res: Response) => {
-  const { name, address, apartments } = req.body;
-
-  const building = await prisma.building.create({
-    data: {
-      name,
-      address,
-      apartments: {
-        create: apartments
-      }
-    },
-  });
-
-  return res.status(201).json(building);
-};
-
-export const getBuildingById = async (req: Request, res: Response) => {
-  const { id } = req.params;
-
-  const building = await prisma.building.findUnique({
-    where: { id: Number(id) },
-    include: { apartments: true },
-  });
-
-  if (!building) {
-    return res.status(404).json({ message: 'Edifícil não encontrado' });
+export const createBuildingController = async (req: Request, res: Response) => {
+  try {
+    const building = await createBuildingRepository(req.body);
+    
+    return res.status(201).json(building);
+  } catch (error) {
+    res.status(400).send(error)
   }
-
-  res.json(building);
 };
 
-export const getAllBuildings = async (req: Request, res: Response) => {
-  const buildings = await prisma.building.findMany({});
+export const getBuildingByIdController = async (req: Request, res: Response) => {
+  try {
+    const buildingId = await getBuildingByIdRepository(req.params.id)
+    
+    if (!buildingId) {
+      return res.status(404).json({ message: 'Edifícil não encontrado' });
+    }
 
-  res.json(buildings);
+    res.status(200).send(buildingId);
+  } catch (error) {
+    res.status(400).send(error)
+  }
 };
+
+export const getAllBuildingsController = async (req: Request, res: Response) => {
+  try {
+    const buildings = await getBuildingRepository();
+    
+    res.status(200).json(buildings);
+  } catch (error) {
+    res.status(400).send(error)
+  }
+};
+
+export const updateBuldingController = async (req: Request, res: Response) => {
+  try {
+    const building = await updateBuildingRepository((req.params.id), req.body)
+
+    return res.status(200).send(building);
+  } catch (error) {
+    res.status(400).send(error)
+  }
+}

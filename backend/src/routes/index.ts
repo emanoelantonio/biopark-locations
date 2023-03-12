@@ -1,22 +1,51 @@
 import express from 'express';
-import { createApartment, getAvailableApartments, renterApartment } from '../controllers/apartmentController';
-import { createBuilding, getAllBuildings, getBuildingById } from '../controllers/buildingController';
-import { createRenter, getRenterById } from '../controllers/renterController';
+import {
+  createApartmentController,
+  getAllApartmentController,
+  getApartmentByIdController,
+  getAvailableApartmentsController,
+  rentApartmentController,
+  renterApartmentController,
+  updateApartmentController
+} from '../controllers/apartmentController';
+import {
+  createBuildingController,
+  getAllBuildingsController,
+  getBuildingByIdController,
+  updateBuldingController
+} from '../controllers/buildingController';
+import {
+  createRenterController,
+  getAllRentersController,
+  getRenterByIdController,
+  removeRenterController,
+  updateRenterController
+} from '../controllers/renterController';
+
 
 const router = express.Router();
 
 // Rotas para os prédios
-router.post('/buildings', createBuilding);
-router.get('/buildings/:id', getBuildingById);
-router.get('/buildings', getAllBuildings);
+router.post('/buildings', createBuildingController);
+router.get('/buildings/:id', getBuildingByIdController);
+router.get('/buildings', getAllBuildingsController);
+router.put('/buildings/:id', updateBuldingController);
+
 
 // Rotas para os apartamentos
-router.post('/apartments', createApartment);
-router.get('/apartments/available/:buildingId', getAvailableApartments);
-router.post('/apartments/rent', renterApartment);
+router.post('/apartments', createApartmentController);
+router.get('/apartments', getAllApartmentController);
+router.get('/apartments/:id', getApartmentByIdController);
+router.put('/apartments/:id', updateApartmentController);
+router.get('/apartments/available/:buildingId', getAvailableApartmentsController);
+router.get('/apartments/rented', renterApartmentController);
+router.post('/apartments/rent', rentApartmentController)
 
 // Rotas para os locatários
-router.post('/renters', createRenter);
-router.get('/renters/:id', getRenterById);
+router.post('/renters', createRenterController);
+router.get('/renters', getAllRentersController)
+router.get('/renters/:id', getRenterByIdController);
+router.put('/renters/:id', updateRenterController);
+router.delete('/renters/:id', removeRenterController);
 
 export default router;
